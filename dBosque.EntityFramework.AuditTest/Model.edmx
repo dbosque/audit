@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="audittestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="EntityFullName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Entity" Type="nvarchar(max)" />
+          <Property Name="EntityId" Type="nvarchar" MaxLength="150" />
+          <Property Name="User" Type="nvarchar" MaxLength="50" />
+          <Property Name="OldValue" Type="nvarchar(max)" />
+          <Property Name="NewValue" Type="nvarchar(max)" />
+          <Property Name="PropertyName" Type="nvarchar(max)" />
+          <Property Name="LogOperation" Type="nvarchar" MaxLength="50" />
+          <Property Name="Signature" Type="varbinary(max)" />
+          <Property Name="Isvalid" Type="bit" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="com_id" />
+          </Key>
+          <Property Name="com_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="com_code" Type="varchar" MaxLength="255" />
+          <Property Name="com_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="com_address" Type="varchar" MaxLength="255" />
+          <Property Name="com_zipcode" Type="varchar" MaxLength="255" />
+          <Property Name="com_city" Type="varchar" MaxLength="255" />
+          <Property Name="com_phonenumber" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityContainer Name="audittestModelStoreContainer">
+          <EntitySet Name="AuditLog" EntityType="Self.AuditLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="audittestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="audittestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="company" EntityType="audittestModel.company" />
+          <EntitySet Name="AuditLog" EntityType="audittestModel.AuditLog" />
+        </EntityContainer>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="com_id" />
+          </Key>
+          <Property Name="com_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="com_code" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="com_name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="com_address" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="com_zipcode" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="com_city" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="com_phonenumber" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+        </EntityType>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EntityFullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Entity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EntityId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OldValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LogOperation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Signature" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Isvalid" Type="Boolean" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="audittestModelStoreContainer" CdmEntityContainer="audittestEntities">
+          <EntitySetMapping Name="company">
+            <EntityTypeMapping TypeName="audittestModel.company">
+              <MappingFragment StoreEntitySet="company">
+                <ScalarProperty Name="com_phonenumber" ColumnName="com_phonenumber" />
+                <ScalarProperty Name="com_city" ColumnName="com_city" />
+                <ScalarProperty Name="com_zipcode" ColumnName="com_zipcode" />
+                <ScalarProperty Name="com_address" ColumnName="com_address" />
+                <ScalarProperty Name="com_name" ColumnName="com_name" />
+                <ScalarProperty Name="com_code" ColumnName="com_code" />
+                <ScalarProperty Name="com_id" ColumnName="com_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLog">
+            <EntityTypeMapping TypeName="audittestModel.AuditLog">
+              <MappingFragment StoreEntitySet="AuditLog">
+                <ScalarProperty Name="Isvalid" ColumnName="Isvalid" />
+                <ScalarProperty Name="Signature" ColumnName="Signature" />
+                <ScalarProperty Name="LogOperation" ColumnName="LogOperation" />
+                <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Entity" ColumnName="Entity" />
+                <ScalarProperty Name="EntityFullName" ColumnName="EntityFullName" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
